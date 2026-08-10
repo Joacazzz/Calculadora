@@ -1,5 +1,5 @@
-```xml
-    <?xml version="1.0" encoding="utf-8"?>
+
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculadora"
+        android:text= "Calculadora"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center"
@@ -20,21 +20,21 @@
         android:id="@+id/nota1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nota 2"
+        android:hint= "Primeira Nota"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/nota2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nota 2"
+        android:hint="Segunda Nota"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/nota3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nota 3"
+        android:hint="Terceira nota"
         android:inputType="numberDecimal" />
 
     <Button
@@ -52,6 +52,11 @@
         android:textSize="20sp"
         android:gravity="center"
         android:layout_marginTop="30dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
 

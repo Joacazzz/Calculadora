@@ -1,4 +1,4 @@
-```kotlin
+
 package com.example.media
 
 import android.os.Bundle
@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         val nota1 = findViewById<EditText>(R.id.nota1)
         val nota2 = findViewById<EditText>(R.id.nota2)
         val nota3 = findViewById<EditText>(R.id.nota3)
+        val nota4 = findViewById<EditText>(R.id.nota4)
 
         val botao = findViewById<Button>(R.id.botaoCalcular)
         val resultado = findViewById<TextView>(R.id.resultado)
@@ -25,10 +26,11 @@ class MainActivity : AppCompatActivity() {
             val n1 = nota1.text.toString().toDoubleOrNull()
             val n2 = nota2.text.toString().toDoubleOrNull()
             val n3 = nota3.text.toString().toDoubleOrNull()
+            val n4 = nota4.text.toString().toDoubleOrNull()
 
-            if (n1 != null && n2 != null && n3 != null) {
+            if (n1 != null && n2 != null && n3 != null && n4 != null) {
 
-                val media = (n1 + n2 + n3) / 3
+                val media = (n1 + n2 + n3 + n4) / 4
 
                 if (media >= 6) {
                     resultado.text = "Média: %.2f\nAluno APROVADO!".format(media)
@@ -42,4 +44,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-```
