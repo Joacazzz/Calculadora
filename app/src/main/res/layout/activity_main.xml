@@ -37,6 +37,13 @@
         android:hint="Terceira nota"
         android:inputType="numberDecimal" />
 
+    <EditText
+        android:id="@+id/nota4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quarta Nota"
+        android:inputType="numberDecimal"/>
+
     <Button
         android:id="@+id/botaoCalcular"
         android:layout_width="match_parent"
@@ -48,10 +55,11 @@
         android:id="@+id/resultado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resultado da Media"
-        android:textSize="20sp"
+        android:text="Resultado"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="24dp"/>
 
     <View
         android:id="@+id/view"

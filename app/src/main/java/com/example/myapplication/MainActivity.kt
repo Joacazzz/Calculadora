@@ -23,23 +23,23 @@ class MainActivity : AppCompatActivity() {
 
         botao.setOnClickListener {
 
-            val n1 = nota1.text.toString().toDoubleOrNull()
-            val n2 = nota2.text.toString().toDoubleOrNull()
-            val n3 = nota3.text.toString().toDoubleOrNull()
-            val n4 = nota4.text.toString().toDoubleOrNull()
+            val notas = listOf(
+                nota1.text.toString().toDoubleOrNull(),
+                nota2.text.toString().toDoubleOrNull(),
+                nota3.text.toString().toDoubleOrNull(),
+                nota4.text.toString().toDoubleOrNull()
+            )
+            if (notas.all { it != null }) {
+                val media = notas.filterNotNull().average()
 
-            if (n1 != null && n2 != null && n3 != null && n4 != null) {
-
-                val media = (n1 + n2 + n3 + n4) / 4
-
-                if (media >= 6) {
-                    resultado.text = "Média: %.2f\nAluno APROVADO!".format(media)
+                resultado.text = if (media >= 6) {
+                    "Média: %.2f\nAluno APROVADO!".format(media)
                 } else {
-                    resultado.text = "Média: %.2f\nAluno REPROVADO!".format(media)
+                    "Média: %.2f\nAluno REPROVADO!".format(media)
                 }
-
             } else {
                 resultado.text = "Digite todas as notas."
+            }
             }
         }
     }
