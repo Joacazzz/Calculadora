@@ -1,8 +1,18 @@
 <resources>
-    <string name="app_name">Minha Calculadora</string>
-    <string name="aluno_aprovado">Média: %.2f\nAluno APROVADO!</string>
-    <string name="aluno_reprovado">Média: %.2f\nAluno REPROVADO!</string>
-    <string name="digite_notas">Digite todas as notas.</string>
+    <string name="app_name">Calculadora de IMC</string>
+    <string name="imc_resultado">Seu IMC é %.2f\nCategoria: %s</string>
+    <string name="preencha_campos">Por favor, preencha o peso e a altura.</string>
+
+    <!-- Categorias IMC -->
+    <string name="imc_abaixo">Abaixo do peso</string>
+    <string name="imc_normal">Peso normal</string>
+    <string name="imc_sobrepeso">Sobrepeso</string>
+    <string name="imc_obesidade">Obesidade</string>
+
+    <!-- Rótulos -->
+    <string name="label_peso">Peso (kg)</string>
+    <string name="label_altura">Altura (m)</string>
+    <string name="btn_calcular_imc">Calcular IMC</string>
 
     <!-- Splash Screen -->
     <string name="splash_text">Bem-vindo!</string>

@@ -9,46 +9,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "Calculadora"
+        android:text= "@string/app_name"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp" />
 
     <EditText
-        android:id="@+id/nota1"
+        android:id="@+id/etPeso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint= "Primeira Nota"
+        android:hint= "@string/label_peso"
         android:inputType="numberDecimal" />
 
     <EditText
-        android:id="@+id/nota2"
+        android:id="@+id/etAltura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Segunda Nota"
+        android:hint="@string/label_altura"
         android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/nota3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Terceira nota"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/nota4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Quarta Nota"
-        android:inputType="numberDecimal"/>
 
     <Button
-        android:id="@+id/botaoCalcular"
+        android:id="@+id/btnCalcularIMC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="CALCULAR MÉDIA" />
+        android:text="@string/btn_calcular_imc" />
 
     <TextView
         android:id="@+id/resultado"

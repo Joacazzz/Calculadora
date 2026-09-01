@@ -12,32 +12,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val nota1 = findViewById<EditText>(R.id.nota1)
-        val nota2 = findViewById<EditText>(R.id.nota2)
-        val nota3 = findViewById<EditText>(R.id.nota3)
-        val nota4 = findViewById<EditText>(R.id.nota4)
+        val etPeso = findViewById<EditText>(R.id.etPeso)
+        val etAltura = findViewById<EditText>(R.id.etAltura)
 
-        val botao = findViewById<Button>(R.id.botaoCalcular)
+        val botao = findViewById<Button>(R.id.btnCalcularIMC)
         val resultado = findViewById<TextView>(R.id.resultado)
 
         botao.setOnClickListener {
+            val peso = etPeso.text.toString().toDoubleOrNull()
+            val altura = etAltura.text.toString().toDoubleOrNull()
 
-            val notas = listOf(
-                nota1.text.toString().toDoubleOrNull(),
-                nota2.text.toString().toDoubleOrNull(),
-                nota3.text.toString().toDoubleOrNull(),
-                nota4.text.toString().toDoubleOrNull(),
-            )
-            if (notas.all { it != null }) {
-                val media = notas.asSequence().filterNotNull().average()
+            if (peso != null && altura != null && altura > 0) {
+                val imc = peso / (altura * altura)
 
-                resultado.text = if (media >= 6) {
-                    getString(R.string.aluno_aprovado, media)
-                } else {
-                    getString(R.string.aluno_reprovado, media)
+                val categoria = when {
+                    imc < 18.5 -> getString(R.string.imc_abaixo)
+                    imc < 25 -> getString(R.string.imc_normal)
+                    imc < 30 -> getString(R.string.imc_sobrepeso)
+                    else -> getString(R.string.imc_obesidade)
                 }
+
+                resultado.text = getString(R.string.imc_resultado, imc, categoria)
             } else {
-                resultado.text = getString(R.string.digite_notas)
+                resultado.text = getString(R.string.preencha_campos)
             }
         }
     }
