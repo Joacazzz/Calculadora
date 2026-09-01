@@ -1,5 +1,4 @@
-
-package com.example.media
+package com.example.myapplication
 
 import android.os.Bundle
 import android.widget.Button
@@ -27,19 +26,18 @@ class MainActivity : AppCompatActivity() {
                 nota1.text.toString().toDoubleOrNull(),
                 nota2.text.toString().toDoubleOrNull(),
                 nota3.text.toString().toDoubleOrNull(),
-                nota4.text.toString().toDoubleOrNull()
+                nota4.text.toString().toDoubleOrNull(),
             )
             if (notas.all { it != null }) {
-                val media = notas.filterNotNull().average()
+                val media = notas.asSequence().filterNotNull().average()
 
                 resultado.text = if (media >= 6) {
-                    "Média: %.2f\nAluno APROVADO!".format(media)
+                    getString(R.string.aluno_aprovado, media)
                 } else {
-                    "Média: %.2f\nAluno REPROVADO!".format(media)
+                    getString(R.string.aluno_reprovado, media)
                 }
             } else {
-                resultado.text = "Digite todas as notas."
-            }
+                resultado.text = getString(R.string.digite_notas)
             }
         }
     }

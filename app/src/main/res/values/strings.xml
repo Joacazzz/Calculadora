@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Minha Calculadora</string>
+    <string name="aluno_aprovado">Média: %.2f\nAluno APROVADO!</string>
+    <string name="aluno_reprovado">Média: %.2f\nAluno REPROVADO!</string>
+    <string name="digite_notas">Digite todas as notas.</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_text">Bem-vindo!</string>
+
+    <!-- Login Screen -->
+    <string name="title_login">Login</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_senha">Senha</string>
+    <string name="btn_login">Entrar</string>
+    <string name="btn_goto_signup">Não tem uma conta? Cadastre-se</string>
+
+    <!-- Signup Screen -->
+    <string name="title_signup">Cadastro</string>
+    <string name="hint_nome">Nome Completo</string>
+    <string name="btn_signup">Registrar</string>
+    <string name="btn_goto_login">Já tem uma conta? Faça Login</string>
 </resources>
