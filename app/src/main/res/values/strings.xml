@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gerador Mega-Sena</string>
+    <string name="app_name">Gerador de Loterias</string>
 
     <!-- Splash Screen -->
     <string name="splash_text">Bem-vindo ao Gerador!</string>
@@ -18,6 +18,16 @@
     <string name="btn_goto_login">Já tem uma conta? Faça Login</string>
 
     <!-- Lottery Screen -->
-    <string name="btn_generate">Gerar Números</string>
-    <string name="default_numbers">00 - 00 - 00 - 00 - 00 - 00</string>
+    <string name="hint_qtd_numeros">Números por jogo</string>
+    <string name="hint_qtd_jogos">Quantidade de jogos</string>
+    <string name="btn_generate">Gerar Jogos</string>
+    <string name="error_invalid_numbers">Quantidade de números inválida para esta loteria.</string>
+    <string name="error_invalid_games">Digite uma quantidade válida de jogos (mínimo 1).</string>
+
+    <string-array name="lottery_types">
+        <item>Mega-Sena</item>
+        <item>Quina</item>
+        <item>Lotofácil</item>
+        <item>Lotomania</item>
+    </string-array>
 </resources>

@@ -1,20 +1,40 @@
 package com.example.myapplication
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.random.Random
 
+// Definição das regras de cada loteria
+enum class LotteryType(
+    val title: String,
+    val maxNumber: Int,
+    val minSelectable: Int,
+    val maxSelectable: Int,
+    val includeZero: Boolean = false
+) {
+    MEGA_SENA("Mega-Sena", 60, 6, 20),
+    QUINA("Quina", 80, 5, 15),
+    LOTOFACIL("Lotofácil", 25, 15, 20),
+    LOTOMANIA("Lotomania", 99, 50, 50, true)
+}
+
 class MainActivity : AppCompatActivity() {
 
-    // Nossa lógica escondida: guarda o número "vencedor" quando o app abre
-    private var hiddenNumbers: List<Int> = emptyList()
+    private lateinit var spinnerLottery: Spinner
+    private lateinit var etQtdNumeros: EditText
+    private lateinit var etQtdJogos: EditText
+    private lateinit var tvResult: TextView
+    private lateinit var currentLottery: LotteryType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,41 +47,84 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Sorteamos a "lógica escondida" que o usuário terá que acertar
-        hiddenNumbers = generateMegaSenaNumbers()
-        
-        // Logcat para ajudar você (desenvolvedor) a debugar/testar o resultado "Parabéns"
-        Log.d("SorteioOculto", "Números escondidos para ganhar: $hiddenNumbers")
-
+        spinnerLottery = findViewById(R.id.spinnerLottery)
+        etQtdNumeros = findViewById(R.id.etQtdNumeros)
+        etQtdJogos = findViewById(R.id.etQtdJogos)
+        tvResult = findViewById(R.id.tvResult)
         val btnGenerate = findViewById<Button>(R.id.btnGenerate)
-        val tvResult = findViewById<TextView>(R.id.tvResult)
-        val tvFeedback = findViewById<TextView>(R.id.tvFeedback)
+
+        setupSpinner()
 
         btnGenerate.setOnClickListener {
-            // Gera a aposta do usuário e exibe na tela
-            val userNumbers = generateMegaSenaNumbers()
-            tvResult.text = userNumbers.joinToString(" - ") { it.toString().padStart(2, '0') }
-
-            // Verifica a intersecção entre a aposta do usuário e o sorteio escondido
-            val acertos = userNumbers.intersect(hiddenNumbers.toSet()).size
-
-            // Compara os resultados e exibe mensagens dinâmicas
-            if (acertos == 6) { // Para Mega-Sena seriam 6 acertos cravados
-                tvFeedback.text = "Parabéns!\nVocê acertou todos os números escondidos!"
-                tvFeedback.setTextColor(Color.parseColor("#4CAF50")) // Verde
-            } else {
-                tvFeedback.text = "Você acertou $acertos número(s).\nTente novamente!"
-                tvFeedback.setTextColor(Color.parseColor("#757575")) // Cinza
-            }
+            generateGames()
         }
     }
 
-    private fun generateMegaSenaNumbers(): List<Int> {
+    private fun setupSpinner() {
+        spinnerLottery.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                currentLottery = LotteryType.values()[position]
+                
+                // Atualiza o campo de quantidade de números com o mínimo da loteria selecionada
+                etQtdNumeros.setText(currentLottery.minSelectable.toString())
+                
+                // Se for Lotomania, o usuário não pode mudar a quantidade (sempre 50)
+                etQtdNumeros.isEnabled = currentLottery != LotteryType.LOTOMANIA
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun generateGames() {
+        val qtdNumerosStr = etQtdNumeros.text.toString()
+        val qtdJogosStr = etQtdJogos.text.toString()
+
+        if (qtdNumerosStr.isEmpty() || qtdJogosStr.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val qtdNumeros = qtdNumerosStr.toInt()
+        val qtdJogos = qtdJogosStr.toInt()
+
+        // Validação da quantidade de jogos
+        if (qtdJogos <= 0) {
+            Toast.makeText(this, getString(R.string.error_invalid_games), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Validação da quantidade de números permitida para a loteria atual
+        if (qtdNumeros < currentLottery.minSelectable || qtdNumeros > currentLottery.maxSelectable) {
+            Toast.makeText(this, getString(R.string.error_invalid_numbers), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val resultBuilder = StringBuilder()
+
+        for (i in 1..qtdJogos) {
+            val gameNumbers = generateSingleGame(qtdNumeros, currentLottery)
+            
+            // Adiciona um título para o jogo se houver mais de um
+            if (qtdJogos > 1) {
+                resultBuilder.append("Jogo $i:\n")
+            }
+            
+            // Formata os números
+            val formattedGame = gameNumbers.joinToString(" - ") { it.toString().padStart(2, '0') }
+            resultBuilder.append(formattedGame).append("\n\n")
+        }
+
+        tvResult.text = resultBuilder.toString().trim()
+    }
+
+    private fun generateSingleGame(qtdNumeros: Int, lottery: LotteryType): List<Int> {
         val numbers = mutableSetOf<Int>()
-        // Ajuste aqui se quiser sortear *mais números* (ex: 15)
-        while (numbers.size < 6) { 
-            // Números de 1 a 60
-            numbers.add(Random.nextInt(1, 61))
+        val startRange = if (lottery.includeZero) 0 else 1
+        val endRange = lottery.maxNumber + 1 // +1 porque Random.nextInt é exclusivo no limite superior
+
+        while (numbers.size < qtdNumeros) {
+            numbers.add(Random.nextInt(startRange, endRange))
         }
         return numbers.sorted()
     }
