@@ -1,21 +1,8 @@
 <resources>
-    <string name="app_name">Calculadora de IMC</string>
-    <string name="imc_resultado">Seu IMC é %.2f\nCategoria: %s</string>
-    <string name="preencha_campos">Por favor, preencha o peso e a altura.</string>
-
-    <!-- Categorias IMC -->
-    <string name="imc_abaixo">Abaixo do peso</string>
-    <string name="imc_normal">Peso normal</string>
-    <string name="imc_sobrepeso">Sobrepeso</string>
-    <string name="imc_obesidade">Obesidade</string>
-
-    <!-- Rótulos -->
-    <string name="label_peso">Peso (kg)</string>
-    <string name="label_altura">Altura (m)</string>
-    <string name="btn_calcular_imc">Calcular IMC</string>
+    <string name="app_name">Gerador Mega-Sena</string>
 
     <!-- Splash Screen -->
-    <string name="splash_text">Bem-vindo!</string>
+    <string name="splash_text">Bem-vindo ao Gerador!</string>
 
     <!-- Login Screen -->
     <string name="title_login">Login</string>
@@ -29,4 +16,8 @@
     <string name="hint_nome">Nome Completo</string>
     <string name="btn_signup">Registrar</string>
     <string name="btn_goto_login">Já tem uma conta? Faça Login</string>
+
+    <!-- Lottery Screen -->
+    <string name="btn_generate">Gerar Números</string>
+    <string name="default_numbers">00 - 00 - 00 - 00 - 00 - 00</string>
 </resources>
