@@ -2,40 +2,35 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main2)
 
-        val etPeso = findViewById<EditText>(R.id.etPeso)
-        val etAltura = findViewById<EditText>(R.id.etAltura)
-
-        val botao = findViewById<Button>(R.id.btnCalcularIMC)
-        val resultado = findViewById<TextView>(R.id.resultado)
-
-        botao.setOnClickListener {
-            val peso = etPeso.text.toString().toDoubleOrNull()
-            val altura = etAltura.text.toString().toDoubleOrNull()
-
-            if (peso != null && altura != null && altura > 0) {
-                val imc = peso / (altura * altura)
-
-                val categoria = when {
-                    imc < 18.5 -> getString(R.string.imc_abaixo)
-                    imc < 25 -> getString(R.string.imc_normal)
-                    imc < 30 -> getString(R.string.imc_sobrepeso)
-                    else -> getString(R.string.imc_obesidade)
-                }
-
-                resultado.text = getString(R.string.imc_resultado, imc, categoria)
-            } else {
-                resultado.text = getString(R.string.preencha_campos)
-            }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
+
+        // Você precisa ter os IDs tvResult e btnGenerate no seu activity_main2.xml
+        val tvResult = findViewById<TextView>(R.id.tvResult)
+        val btnGenerate = findViewById<Button>(R.id.btnGenerate)
+
+        btnGenerate.setOnClickListener {
+            tvResult.text = gerarNumerosMegaSena()
+        }
+    }
+
+    private fun gerarNumerosMegaSena(): String {
+        // A linha que carrega a ilusão de riqueza:
+        return (1..60).shuffled().take(6).sorted().joinToString(" - ")
     }
 }
